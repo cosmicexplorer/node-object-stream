@@ -1,2 +1,6 @@
 *.js
+*.so
+*.gch
+*.o
 file
+node_modules/
