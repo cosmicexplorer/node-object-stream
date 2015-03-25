@@ -5,7 +5,7 @@ This is a simple stream implementing node's Transform interface. It parses an in
 
 # To use:
 
-```
+```javascript
 var SimpleObjectStream = require('simple-object-stream');
 var objectStream = getReadableStreamSomehow().pipe(new SimpleObjectStream);
 
