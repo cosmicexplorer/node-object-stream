@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" = "clean" ]; then
-   rm -f *.js
+   rm -f bin/*.js
 else
   coffee -o bin/ -c *.coffee
 fi
