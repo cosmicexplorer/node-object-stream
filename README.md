@@ -6,8 +6,8 @@ This is a simple stream implementing node's Transform interface. It parses an in
 # To use:
 
 ```
-var NodeObjectStream = require('node-object-stream');
-var objectStream = getReadableStreamSomehow().pipe(new NodeObjectStream);
+var SimpleObjectStream = require('simple-object-stream');
+var objectStream = getReadableStreamSomehow().pipe(new SimpleObjectStream);
 
 // gives you a tidy little javascript object
 objectStream.on('object', function(obj){
