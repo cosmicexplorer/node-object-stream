@@ -20,7 +20,7 @@ objectStream.on('end', function(){
 });
 ```
 
-As with most other streams, this one emits `'readable'` and `'data'` events; however, that kinda defeats the purpose of the stream. Whatever.
+As it inherits from the Transform stream interface, this stream can use both the standard readable and writable interfaces detailed in the [node documentation](https://nodejs.org/api/stream.html).
 
 # License
 

@@ -17,6 +17,8 @@ NodeObjectStream = ->
       src.on 'end', =>
         @emit 'end'
 
+util.inherits NodeObjectStream, Transform
+
 NodeObjectStream.prototype._flush = (chunk, encoding, callback) ->
   rem = @_buffer?.trim()
   if rem
@@ -214,7 +216,5 @@ NodeObjectStream.prototype._transform = (chunk, encoding, callback) ->
         @emit 'error', new Error("input stream not valid json: invalid char: #{c}")
   @push(chunk)
   callback?()
-
-util.inherits NodeObjectStream, Transform
 
 module.exports = NodeObjectStream

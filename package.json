@@ -1,0 +1,32 @@
+{
+  "name": "simple-object-stream",
+  "version": "1.0.0",
+  "description": "A Transform stream which parses json from plaintext input.",
+  "main": "./bin/simple-object-stream.js",
+  "scripts": {
+    "prepublish": "./compile.sh",
+    "test": "./json_out.sh | node ./bin/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cosmicexplorer/simple-object-stream.git"
+  },
+  "keywords": [
+    "stream",
+    "Transform",
+    "object",
+    "parse",
+    "event",
+    "pipe",
+    "simple"
+  ],
+  "author": "Danny McClanahan <danieldmcclanahan@gmail.com>",
+  "license": "GPL v3",
+  "bugs": {
+    "url": "https://github.com/cosmicexplorer/simple-object-stream/issues"
+  },
+  "homepage": "https://github.com/cosmicexplorer/simple-object-stream",
+  "devDependencies": {
+    "coffee-script": "^1.9.1"
+  }
+}

@@ -1,3 +1,7 @@
 #!/bin/bash
 
-coffee -c *.coffee
+if [ "$1" = "clean" ]; then
+   rm -f *.js
+else
+  coffee -o bin/ -c *.coffee
+fi
