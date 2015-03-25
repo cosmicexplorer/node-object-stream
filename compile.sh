@@ -3,5 +3,6 @@
 if [ "$1" = "clean" ]; then
    rm -f bin/*.js
 else
-  coffee -o bin/ -c *.coffee
+  mkdir -p bin/
+  coffee -o bin/ -c src/*.coffee
 fi
