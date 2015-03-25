@@ -1,9 +1,9 @@
 util = require 'util'
 Transform = require('stream').Transform
 
-NodeObjectStream = ->
-  if not @ instanceof NodeObjectStream
-    return new NodeObjectStream
+SimpleObjectStream = ->
+  if not @ instanceof SimpleObjectStream
+    return new SimpleObjectStream
   else
     Transform.call @, readableObjectMode: true
     @delimiterStack = []
@@ -17,9 +17,9 @@ NodeObjectStream = ->
       src.on 'end', =>
         @emit 'end'
 
-util.inherits NodeObjectStream, Transform
+util.inherits SimpleObjectStream, Transform
 
-NodeObjectStream.prototype._flush = (chunk, encoding, callback) ->
+SimpleObjectStream.prototype._flush = (chunk, encoding, callback) ->
   rem = @_buffer?.trim()
   if rem
     try
@@ -30,7 +30,7 @@ NodeObjectStream.prototype._flush = (chunk, encoding, callback) ->
     @push obj
   callback?()
 
-NodeObjectStream.prototype._transform = (chunk, encoding, callback) ->
+SimpleObjectStream.prototype._transform = (chunk, encoding, callback) ->
   # TODO: convert to just buffer for efficiency
   # str = chunk.toString(encoding)
   str = chunk.toString()        # not sure why above doesn't work
@@ -217,4 +217,4 @@ NodeObjectStream.prototype._transform = (chunk, encoding, callback) ->
   @push(chunk)
   callback?()
 
-module.exports = NodeObjectStream
+module.exports = SimpleObjectStream
