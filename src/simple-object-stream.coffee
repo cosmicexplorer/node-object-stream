@@ -13,9 +13,12 @@ SimpleObjectStream = ->
     @curKey = []
     @curVal = []
     @isKey = false
+    cb = =>
+      @emit 'end'
     @on 'pipe', (src) =>
-      src.on 'end', =>
-        @emit 'end'
+      src.on 'end', cb
+    @on 'unpipe', (src) =>
+      src.removeListener 'end', cb
 
 util.inherits SimpleObjectStream, Transform
 
