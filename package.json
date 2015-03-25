@@ -5,7 +5,7 @@
   "main": "./bin/simple-object-stream.js",
   "scripts": {
     "prepublish": "./compile.sh",
-    "test": "./json_out.sh | node ./bin/test.js"
+    "test": "./compile.sh && ./test/json_out.sh | node ./bin/test.js"
   },
   "repository": {
     "type": "git",

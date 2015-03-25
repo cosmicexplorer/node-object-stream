@@ -23,6 +23,7 @@ SimpleObjectStream = ->
 util.inherits SimpleObjectStream, Transform
 
 SimpleObjectStream.prototype._flush = (chunk, encoding, callback) ->
+  # just push out what we can. this won't be called often
   rem = @_buffer?.trim()
   if rem
     try
@@ -33,6 +34,13 @@ SimpleObjectStream.prototype._flush = (chunk, encoding, callback) ->
     @push obj
   callback?()
 
+# validates JSON while reading from stream
+# i don't like all these if statements, but it seems to be the only way to
+# go. feel free to send a pull request if you prefer an alternate method
+#
+# OPTIMIZATION: construct json object as you go instead of putting into one big
+# string and calling JSON.parse(). I haven't seen any speed problems yet,
+# though.
 SimpleObjectStream.prototype._transform = (chunk, encoding, callback) ->
   # str = chunk.toString(encoding)
   str = chunk.toString()        # not sure why above doesn't work

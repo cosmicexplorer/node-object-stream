@@ -9,7 +9,7 @@ nos = process.stdin.pipe(new SimpleObjectStream)
 nos.on 'object', (obj) ->
   if readObject
     throw "test FAILED: parsed incorrect number of objects"
-  fs.readFile "./test_file", (err, data) ->
+  fs.readFile "#{__dirname}/../test/test_file", (err, data) ->
     throw err if err
     if JSON.stringify(obj) != JSON.stringify(JSON.parse(data.toString()))
       console.warn "obj: "
