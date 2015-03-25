@@ -1,4 +1,4 @@
-node-object-stream
+simple-object-stream
 ==================
 
 This is a simple stream implementing node's Transform interface. It parses an input stream and emits `'object'` events with parsed JSON objects when it reaches a full JSON object, and errors out when it encounters invalid JSON.
