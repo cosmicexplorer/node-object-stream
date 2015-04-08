@@ -30,7 +30,7 @@ As it inherits from the Transform stream interface, this stream can use both the
 
 # Development
 
-I wrote this because I once spent seven hours at a hackathon trying to get IPC going between a python and a node process. If you think there's something that needs to be added, feel free to send a pull request. If any speed issues ever arise, I'll probably manually construct the JSON instead of calling JSON.parse(), and maybe play with some C functions as required.
+I wrote this because I once spent seven hours at a hackathon trying to get IPC going between a python and a node process. If you think there's something that needs to be added, feel free to send an email, issue, pull request, smoke signal, whatever. If any speed issues ever arise, I'll probably manually construct the JSON instead of calling JSON.parse(), and maybe play with some C functions as required.
 
 # License
 
