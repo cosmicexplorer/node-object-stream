@@ -26,7 +26,9 @@ objectStream.on('error', function(){
 
 ```
 
-As it inherits from the Transform stream interface, this stream can use both the standard readable and writable interfaces detailed in the [node documentation](https://nodejs.org/api/stream.html).
+As it inherits from the Transform stream interface, this stream can use both the standard readable and writable interfaces detailed in the [node documentation](https://nodejs.org/api/stream.html). Its output can also be piped to another stream, although its stream output isn't parsed into json objects the way its emitted 'object' events do.
+
+Note that this stream will error out if passed anthing but braced JSON objects (hashes and arrays: objects starting with {} or []). While more advanced functionality could be added, this would make the goal of simplicity difficult to achieve.
 
 # Development
 
