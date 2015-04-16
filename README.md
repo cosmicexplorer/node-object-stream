@@ -20,8 +20,8 @@ objectStream.on('end', function(){
 });
 
 // uh oh! something bad happened!!!
-objectStream.on('error', function(){
-  doSomethingOnError();
+objectStream.on('error', function(err){
+  doSomethingOnError(err);
 });
 
 ```
