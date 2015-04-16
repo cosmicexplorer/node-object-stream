@@ -13,17 +13,25 @@ SimpleObjectStream = ->
     @curKey = []
     @curVal = []
     @isKey = false
-    cb = =>
+
+    # emit 'end' on end of input
+    cbEnd = =>
       @emit 'end'
+    # same for 'error'
+    cbError = (err) =>
+      @emit 'error'
     @on 'pipe', (src) =>
-      src.on 'end', cb
+      src.on 'end', cbEnd
+      src.on 'error', cbError
     @on 'unpipe', (src) =>
-      src.removeListener 'end', cb
+      src.removeListener 'end', cbEnd
+      src.removeListener 'error', cbError
+
 
 util.inherits SimpleObjectStream, Transform
 
 SimpleObjectStream.prototype._flush = (chunk, encoding, callback) ->
-  # just push out what we can. this won't be called often
+  # just push out what we can. this won't be called often, if at all
   rem = @_buffer?.trim()
   if rem
     try
