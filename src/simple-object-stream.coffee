@@ -17,6 +17,9 @@ class SimpleObjectStream extends Transform
       @curVal = []
       @isKey = no
 
+      # buffer for in between chunks
+      @buffer = ""
+
       # emit 'end' on end of input
       cbEnd = =>
         @emit 'end'
@@ -30,29 +33,27 @@ class SimpleObjectStream extends Transform
         src.removeListener 'end', cbEnd
         src.removeListener 'error', cbError
 
-  _flush : (chunk, encoding, callback) ->
-    # just push out what we can. this won't be called often, if at all
-    rem = @_buffer?.trim()
-    if rem
-      try
-        obj = JSON.parse(rem)
-      catch err
-        @emit 'error', err
-        return
-      @push obj
+  _flush : (callback) ->
+    @pushObjs @buffer           # mutates buffer
+    if @buffer.match /[^\s]/g   # if any non-whitespace chars
+      @emit 'error', new Error("Unparsable end of stream.")
     callback?()
 
   # validates JSON while reading from stream
   # i don't like all these if statements, but it seems to be the only way to
   # go. feel free to send a pull request if you prefer an alternate method
   #
-  # OPTIMIZATION: construct json object as you go instead of putting into one big
-  # string and calling JSON.parse(). I haven't seen any speed problems yet,
+  # OPTIMIZATION: construct json object as you go instead of putting into one
+  # big string and calling JSON.parse(). I haven't seen any speed problems yet,
   # though.
   _transform : (chunk, encoding, callback) ->
-    # str = chunk.toString(encoding)
-    str = chunk.toString()        # not sure why above doesn't work
-    for c in str
+    str = @buffer + chunk.toString()
+    @pushObjs str
+    callback?()
+
+  pushObjs : (str) ->
+    for i in [0..(str.length - 1)] by 1
+      c = str.charAt(i)
       if @inString
         if @isKey
           @curKey.push c
@@ -93,6 +94,8 @@ class SimpleObjectStream extends Transform
                 try
                   finalObj = JSON.parse(@curObjArr.join(""))
                   @emit 'object', finalObj
+                  @push JSON.stringify(finalObj)
+                  @buffer = str.substr(0, i + 1)
                 catch err
                   @emit 'error', err
                 @curObjArr = []
@@ -107,6 +110,7 @@ class SimpleObjectStream extends Transform
                 try
                   finalObj = JSON.parse(@curObjArr.join(""))
                   @emit 'object', finalObj
+                  @push JSON.stringify(finalObj)
                 catch err
                   @emit 'error', err
                 @curObjArr = []
@@ -122,6 +126,7 @@ class SimpleObjectStream extends Transform
                 try
                   finalObj = JSON.parse(@curObjArr.join(""))
                   @emit 'object', finalObj
+                  @push JSON.stringify(finalObj)
                 catch err
                   @emit 'error', err
                 @curObjArr = []
@@ -204,5 +209,3 @@ class SimpleObjectStream extends Transform
           # do nothing
         else
           @emit 'error', new Error("input stream not valid json: invalid char: #{c}")
-    @push(chunk)
-    callback?()
