@@ -12,10 +12,10 @@ class SimpleObjectStream extends Transform
       @delimiterStack = []
       @curObjArr = []
       @prevChar = ""
-      @inString = false
+      @inString = no
       @curKey = []
       @curVal = []
-      @isKey = false
+      @isKey = no
 
       # emit 'end' on end of input
       cbEnd = =>

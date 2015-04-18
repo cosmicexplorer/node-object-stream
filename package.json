@@ -1,6 +1,6 @@
 {
   "name": "simple-object-stream",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A Transform stream which parses json from plaintext input.",
   "main": "./bin/simple-object-stream.js",
   "scripts": {
@@ -30,7 +30,6 @@
     "coffee-script": "^1.9.1"
   },
   "dependencies": {
-    "stream": "0.0.2",
-    "util": "^0.10.3"
+    "stream": "0.0.2"
   }
 }
