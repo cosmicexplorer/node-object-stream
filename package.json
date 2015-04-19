@@ -1,6 +1,6 @@
 {
   "name": "simple-object-stream",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Transform stream which parses json from plaintext input.",
   "main": "./bin/simple-object-stream.js",
   "scripts": {

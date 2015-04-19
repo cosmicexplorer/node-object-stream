@@ -25,7 +25,7 @@ class SimpleObjectStream extends Transform
         @emit 'end'
       # same for 'error'
       cbError = (err) =>
-        @emit 'error'
+        @emit 'error', err
       @on 'pipe', (src) =>
         src.on 'end', cbEnd
         src.on 'error', cbError
