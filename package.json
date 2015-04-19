@@ -1,6 +1,6 @@
 {
   "name": "simple-object-stream",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Transform stream which parses json from plaintext input.",
   "main": "./bin/simple-object-stream.js",
   "scripts": {
@@ -28,8 +28,5 @@
   "homepage": "https://github.com/cosmicexplorer/simple-object-stream",
   "devDependencies": {
     "coffee-script": "^1.9.1"
-  },
-  "dependencies": {
-    "stream": "0.0.2"
   }
 }
