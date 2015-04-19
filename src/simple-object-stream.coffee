@@ -20,17 +20,11 @@ class SimpleObjectStream extends Transform
       # buffer for in between chunks
       @buffer = ""
 
-      # emit 'end' on end of input
-      cbEnd = =>
-        @emit 'end'
-      # same for 'error'
       cbError = (err) =>
         @emit 'error', err
       @on 'pipe', (src) =>
-        src.on 'end', cbEnd
         src.on 'error', cbError
       @on 'unpipe', (src) =>
-        src.removeListener 'end', cbEnd
         src.removeListener 'error', cbError
 
   _flush : (callback) ->
