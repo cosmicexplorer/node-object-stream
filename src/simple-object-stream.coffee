@@ -5,27 +5,29 @@ module.exports =
 class SimpleObjectStream extends Transform
 
   constructor : ->
+    if opts
+      opts.readableObjectMode = yes
     if not @ instanceof SimpleObjectStream
-      return new SimpleObjectStream
+      return new SimpleObjectStream opts
     else
-      Transform.call @, readableObjectMode: true
-      @delimiterStack = []
-      @curObjArr = []
-      @prevChar = ""
-      @inString = no
-      @curKey = []
-      @curVal = []
-      @isKey = no
+      Transform.call @, yes
 
-      # buffer for in between chunks
-      @buffer = ""
+    @delimiterStack = []
+    @curObjArr = []
+    @prevChar = ""
+    @inString = no
+    @curKey = []
+    @curVal = []
+    @isKey = no
 
-      cbError = (err) =>
-        @emit 'error', err
-      @on 'pipe', (src) =>
-        src.on 'error', cbError
-      @on 'unpipe', (src) =>
-        src.removeListener 'error', cbError
+    # buffer for in between chunks
+    @buffer = ""
+    cbError = (err) =>
+      @emit 'error', err
+    @on 'pipe', (src) =>
+      src.on 'error', cbError
+    @on 'unpipe', (src) =>
+      src.removeListener 'error', cbError
 
   _flush : (callback) ->
     @pushObjs @buffer           # mutates buffer
